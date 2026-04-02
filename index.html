@@ -1074,16 +1074,15 @@
     updateProgress();
   }
 
-  document.addEventListener('DOMContentLoaded', () => {
-    getAllItems().forEach(item => {
-      item.addEventListener('click', () => {
-        item.classList.toggle('done');
-        item.querySelector('.checkbox').classList.toggle('checked');
-        saveState();
-      });
+  // Script is at bottom of body — DOM is already ready, run directly
+  getAllItems().forEach(item => {
+    item.addEventListener('click', () => {
+      item.classList.toggle('done');
+      item.querySelector('.checkbox').classList.toggle('checked');
+      saveState();
     });
-    loadState();
   });
+  loadState();
 </script>
 
 </body>
