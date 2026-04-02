@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Baton Rouge Bar Vending — Business Plan</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0f1117;
+    --surface: #1a1d27;
+    --surface2: #222638;
+    --border: #2e3347;
+    --accent: #6c63ff;
+    --accent2: #00d4aa;
+    --accent3: #ff6b6b;
+    --text: #e8eaf0;
+    --muted: #8b90a7;
+    --gold: #f5c842;
+  }
+
+  body {
+    font-family: 'Inter', system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    font-size: 14px;
+  }
+
+  .hero {
+    background: linear-gradient(135deg, #1a1d27 0%, #0f1117 50%, #1a1227 100%);
+    padding: 60px 40px 48px;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -80px; right: -80px;
+    width: 320px; height: 320px;
+    background: radial-gradient(circle, rgba(108,99,255,0.15) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .hero-badge {
+    display: inline-block;
+    background: rgba(108,99,255,0.15);
+    border: 1px solid rgba(108,99,255,0.35);
+    color: #a89dff;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 5px 14px;
+    border-radius: 20px;
+    margin-bottom: 20px;
+  }
+  .hero h1 {
+    font-size: 36px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    line-height: 1.2;
+    margin-bottom: 10px;
+    background: linear-gradient(135deg, #fff 0%, #a89dff 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .hero p { color: var(--muted); font-size: 15px; margin-bottom: 32px; }
+  .hero-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; max-width: 700px; }
+  .stat-card { background: rgba(255,255,255,0.04); border: 1px solid var(--border); border-radius: 12px; padding: 16px; }
+  .stat-card .label { font-size: 10px; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); margin-bottom: 6px; }
+  .stat-card .value { font-size: 18px; font-weight: 700; color: var(--accent2); }
+  .stat-card .sub { font-size: 10px; color: var(--muted); margin-top: 2px; }
+
+  .container { max-width: 960px; margin: 0 auto; padding: 48px 32px; }
+  .section { margin-bottom: 56px; }
+  .section-header { display: flex; align-items: center; gap: 14px; margin-bottom: 24px; }
+  .step-num { width: 36px; height: 36px; background: linear-gradient(135deg, var(--accent), #9c6cff); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 700; color: #fff; flex-shrink: 0; }
+  .section-header h2 { font-size: 20px; font-weight: 700; color: var(--text); }
+  .section-header .desc { font-size: 13px; color: var(--muted); font-weight: 400; margin-top: 2px; }
+
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 20px 24px; margin-bottom: 12px; }
+  .card-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+
+  table { width: 100%; border-collapse: collapse; }
+  .table-wrap { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; margin-bottom: 16px; }
+  th { background: var(--surface2); color: var(--muted); font-size: 11px; font-weight: 600; letter-spacing: 0.8px; text-transform: uppercase; padding: 12px 16px; text-align: left; border-bottom: 1px solid var(--border); }
+  td { padding: 12px 16px; border-bottom: 1px solid rgba(255,255,255,0.04); font-size: 13px; color: var(--text); }
+  tr:last-child td { border-bottom: none; }
+  tr.highlight td { background: rgba(108,99,255,0.08); }
+  tr.top-pick td { background: rgba(0,212,170,0.07); }
+  tr.total-row td { background: rgba(108,99,255,0.12); font-weight: 700; color: var(--accent2); }
+
+  .bar-card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 20px 24px; margin-bottom: 12px; display: grid; grid-template-columns: 40px 1fr; gap: 16px; align-items: start; transition: border-color 0.2s; }
+  .bar-card:hover { border-color: var(--accent); }
+  .bar-rank { width: 40px; height: 40px; background: linear-gradient(135deg, var(--accent), #9c6cff); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 800; color: #fff; }
+  .bar-rank.gold { background: linear-gradient(135deg, #f5c842, #f0963a); }
+  .bar-name { font-size: 16px; font-weight: 700; margin-bottom: 2px; }
+  .bar-area { font-size: 11px; color: var(--accent2); text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 8px; }
+  .bar-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
+  .tag { background: rgba(255,255,255,0.06); border: 1px solid var(--border); color: var(--muted); font-size: 11px; padding: 3px 10px; border-radius: 20px; }
+  .bar-pitch { background: rgba(0,212,170,0.07); border-left: 3px solid var(--accent2); padding: 8px 12px; border-radius: 0 8px 8px 0; font-size: 12px; font-style: italic; color: #aee8d8; }
+
+  .pitch-box { background: rgba(0,212,170,0.06); border: 1px solid rgba(0,212,170,0.2); border-radius: 14px; padding: 20px 24px; font-size: 15px; font-style: italic; color: #aee8d8; line-height: 1.7; margin-bottom: 16px; }
+
+  .week-block { margin-bottom: 24px; }
+  .week-title { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--accent); margin-bottom: 10px; padding-bottom: 6px; border-bottom: 1px solid var(--border); }
+  .check-item { display: flex; align-items: flex-start; gap: 12px; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.04); font-size: 13px; }
+  .check-item:last-child { border-bottom: none; }
+  .checkbox { width: 18px; height: 18px; border: 2px solid var(--border); border-radius: 5px; flex-shrink: 0; margin-top: 1px; background: var(--surface2); }
+  .check-text { color: var(--text); }
+
+  .roadmap { position: relative; padding-left: 28px; }
+  .roadmap::before { content: ''; position: absolute; left: 7px; top: 0; bottom: 0; width: 2px; background: linear-gradient(to bottom, var(--accent), var(--accent2)); border-radius: 2px; }
+  .roadmap-item { position: relative; margin-bottom: 20px; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 16px 20px; }
+  .roadmap-item::before { content: ''; position: absolute; left: -24px; top: 20px; width: 12px; height: 12px; border-radius: 50%; background: var(--accent); border: 2px solid var(--bg); }
+  .roadmap-phase { font-size: 10px; text-transform: uppercase; letter-spacing: 1px; color: var(--accent); font-weight: 700; margin-bottom: 4px; }
+  .roadmap-title { font-size: 14px; font-weight: 600; margin-bottom: 4px; }
+  .roadmap-desc { font-size: 12px; color: var(--muted); }
+
+  .success-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; }
+  .success-item { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 16px; text-align: center; }
+  .success-num { font-size: 24px; font-weight: 800; color: var(--accent); margin-bottom: 8px; }
+  .success-text { font-size: 11px; color: var(--muted); line-height: 1.5; }
+
+  .badge { display: inline-block; padding: 2px 8px; border-radius: 6px; font-size: 11px; font-weight: 600; }
+  .badge-green { background: rgba(0,212,170,0.15); color: var(--accent2); }
+  .badge-purple { background: rgba(108,99,255,0.15); color: #a89dff; }
+
+  .lic-step { display: flex; gap: 16px; align-items: flex-start; padding: 16px 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
+  .lic-step:last-child { border-bottom: none; }
+  .lic-num { min-width: 32px; height: 32px; background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; color: var(--accent); }
+  .lic-title { font-size: 14px; font-weight: 600; margin-bottom: 3px; }
+  .lic-meta { font-size: 12px; color: var(--muted); }
+
+  footer { text-align: center; padding: 32px; color: var(--muted); font-size: 11px; border-top: 1px solid var(--border); }
+
+  @media (max-width: 640px) {
+    .hero-stats { grid-template-columns: repeat(2, 1fr); }
+    .card-grid { grid-template-columns: 1fr; }
+    .success-grid { grid-template-columns: repeat(2, 1fr); }
+    .hero { padding: 36px 20px 32px; }
+    .hero h1 { font-size: 26px; }
+    .container { padding: 32px 16px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-badge">Business Plan · Startup Edition</div>
+  <h1>Baton Rouge Bar<br>Vending Machine</h1>
+  <p>1-machine startup · Nightlife products · High-margin focus · Baton Rouge, LA</p>
+  <div class="hero-stats">
+    <div class="stat-card"><div class="label">Startup Cost</div><div class="value">~$6,500</div><div class="sub">1 machine, stocked &amp; legal</div></div>
+    <div class="stat-card"><div class="label">Monthly Net</div><div class="value">$450–$900</div><div class="sub">mid-traffic bar</div></div>
+    <div class="stat-card"><div class="label">Break-Even</div><div class="value">~10 mo</div><div class="sub">mid-traffic estimate</div></div>
+    <div class="stat-card"><div class="label">Top Margin</div><div class="value">86%</div><div class="sub">bottled water</div></div>
+  </div>
+</div>
+
+<div class="container">
+
+<div class="section">
+  <div class="section-header"><div class="step-num">1</div><div><h2>Pick Your Location</h2><div class="desc">Start with one bar. The right location is everything.</div></div></div>
+  <div class="card" style="margin-bottom:20px;">
+    <p style="font-size:13px;color:var(--muted);margin-bottom:12px;">Your ideal first bar checks all of these:</p>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;">
+      <div style="background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:12px;font-size:12px;"><div style="color:var(--accent2);font-weight:700;margin-bottom:4px;">Open Late</div>Until 2–3 AM or later</div>
+      <div style="background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:12px;font-size:12px;"><div style="color:var(--accent2);font-weight:700;margin-bottom:4px;">High Traffic</div>200+ patrons on busy nights</div>
+      <div style="background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:12px;font-size:12px;"><div style="color:var(--accent2);font-weight:700;margin-bottom:4px;">No Competition</div>No existing vending machine</div>
+      <div style="background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:12px;font-size:12px;"><div style="color:var(--accent2);font-weight:700;margin-bottom:4px;">Independent</div>Owner-operated, fast decisions</div>
+      <div style="background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:12px;font-size:12px;"><div style="color:var(--accent2);font-weight:700;margin-bottom:4px;">Has Bathrooms</div>Good for customer comfort</div>
+      <div style="background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:12px;font-size:12px;"><div style="color:var(--accent2);font-weight:700;margin-bottom:4px;">Outlet Access</div>Electricity for the machine</div>
+    </div>
+  </div>
+  <h3 style="font-size:14px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:16px;">Top 5 Recommended Bars</h3>
+  <div class="bar-card"><div class="bar-rank gold">1</div><div><div class="bar-name">The Basin Music Hall</div><div class="bar-area">Third Street · Downtown</div><div class="bar-tags"><span class="tag">Mixed 21–45</span><span class="tag">Live Music</span><span class="tag">Open Late</span><span class="tag">High Volume</span></div><div style="font-size:12px;color:var(--muted);margin-bottom:10px;">Busiest nightlife spot in the city. Large event crowds stay for hours — peak impulse-buy window.</div><div class="bar-pitch">"Your crowd is here for the night — keep them stocked without leaving the venue."</div></div></div>
+  <div class="bar-card"><div class="bar-rank">2</div><div><div class="bar-name">Fred's Bar</div><div class="bar-area">Tigerland · LSU Area</div><div class="bar-tags"><span class="tag">College 21–25</span><span class="tag">Highest Volume</span><span class="tag">Late Hours</span></div><div style="font-size:12px;color:var(--muted);margin-bottom:10px;">Highest raw foot traffic in Baton Rouge on weekends. Students spend freely and never plan ahead.</div><div class="bar-pitch">"Students forget everything — your machine covers what they need."</div></div></div>
+  <div class="bar-card"><div class="bar-rank">3</div><div><div class="bar-name">Firehaus</div><div class="bar-area">Mid City</div><div class="bar-tags"><span class="tag">Upscale 25–40</span><span class="tag">Rooftop Bar</span><span class="tag">High Spend</span></div><div style="font-size:12px;color:var(--muted);margin-bottom:10px;">Affluent clientele who spend more per transaction. Rooftop layout keeps guests for 3–4+ hours.</div><div class="bar-pitch">"Your guests stay all night — give them premium convenience on-site."</div></div></div>
+  <div class="bar-card"><div class="bar-rank">4</div><div><div class="bar-name">Mid City Beer Garden</div><div class="bar-area">Mid City</div><div class="bar-tags"><span class="tag">Craft Crowd 24–40</span><span class="tag">50+ Taps</span><span class="tag">Outdoor Seating</span></div><div style="font-size:12px;color:var(--muted);margin-bottom:10px;">Large outdoor capacity with frozen drinks that keep people on-site. Growing neighborhood.</div><div class="bar-pitch">"Outdoor crowds get thirsty and forget things — you can cover both."</div></div></div>
+  <div class="bar-card"><div class="bar-rank">5</div><div><div class="bar-name">Hayride Scandal</div><div class="bar-area">Third Street · Downtown</div><div class="bar-tags"><span class="tag">Nightclub 21–35</span><span class="tag">DJ Nights</span><span class="tag">Peak 11PM–2AM</span></div><div style="font-size:12px;color:var(--muted);margin-bottom:10px;">Pure nightclub hours — vending impulse buys spike after midnight. Packed every weekend.</div><div class="bar-pitch">"Your busiest hours are when people need this most — zero effort on your end."</div></div></div>
+</div>
+
+<div class="section">
+  <div class="section-header"><div class="step-num">2</div><div><h2>Choose Your Machine</h2><div class="desc">One refurbished combo machine stocked with everything — including condoms inside the machine.</div></div></div>
+  <div class="card" style="border-color:rgba(0,212,170,0.3);margin-bottom:16px;">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:12px;">
+      <div><div style="font-size:11px;text-transform:uppercase;letter-spacing:1px;color:var(--accent2);margin-bottom:6px;">Recommended Starter</div><div style="font-size:18px;font-weight:700;margin-bottom:4px;">AMS 39-640 Combo (Antares)</div><div style="font-size:13px;color:var(--muted);">39 snack + 6 drink columns · Cashless ready · Energy efficient</div></div>
+      <div style="text-align:right;"><div style="font-size:22px;font-weight:800;color:var(--accent2);">$3,500–$5,500</div><div style="font-size:11px;color:var(--muted);">refurbished</div></div>
+    </div>
+  </div>
+  <div class="table-wrap"><table>
+    <tr><th>Machine</th><th>Type</th><th>Refurb Price</th><th>Best For</th></tr>
+    <tr class="top-pick"><td><strong>AMS 39-640 Combo</strong> <span class="badge badge-green">Start Here</span></td><td>Combo</td><td>$3,500–$5,500</td><td>High-volume bars</td></tr>
+    <tr><td>Seaga INF5C Infinity</td><td>Combo</td><td>$3,800–$5,000</td><td>Smaller bars</td></tr>
+    <tr><td>USI/Wittern 3574</td><td>Refrigerated Combo</td><td>$3,000–$4,500</td><td>Cold + snack bars</td></tr>
+    <tr><td>Crane 431/480</td><td>Snack only</td><td>$2,500–$4,000</td><td>Mid-size bars</td></tr>
+    <tr><td>Royal Vendors RVCC</td><td>Drink only</td><td>$2,195–$3,500</td><td>Pair with snack unit</td></tr>
+    <tr><td>VapeTM VM700</td><td>Vape + age-verify</td><td>$5,000–$8,000</td><td>Dedicated vape kiosk</td></tr>
+    <tr><td>Mango Vape Kiosk</td><td>Vape + age-verify</td><td>$4,500–$7,000</td><td>Upscale bars</td></tr>
+  </table></div>
+  <h3 style="font-size:13px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin:20px 0 10px;">Where to Buy Refurbished</h3>
+  <div class="card-grid">
+    <div class="card" style="padding:14px 16px;"><div style="font-weight:600;margin-bottom:4px;">MegaVending.com</div><div style="font-size:12px;color:var(--muted);">Large inventory · 90-day parts warranty</div></div>
+    <div class="card" style="padding:14px 16px;"><div style="font-weight:600;margin-bottom:4px;">Vending.com</div><div style="font-size:12px;color:var(--muted);">Broker marketplace · wide selection</div></div>
+    <div class="card" style="padding:14px 16px;"><div style="font-weight:600;margin-bottom:4px;">A&amp;M Equipment Sales</div><div style="font-size:12px;color:var(--muted);">Southern US dealer · good for local pickup</div></div>
+    <div class="card" style="padding:14px 16px;"><div style="font-weight:600;margin-bottom:4px;">UsedVending.com</div><div style="font-size:12px;color:var(--muted);">Peer-to-peer nationwide</div></div>
+    <div class="card" style="padding:14px 16px;"><div style="font-weight:600;margin-bottom:4px;">eBay / Craigslist</div><div style="font-size:12px;color:var(--muted);">Lowest prices · no warranty · inspect first</div></div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-header"><div class="step-num">3</div><div><h2>Stock It Right</h2><div class="desc">14 high-margin nightlife products sorted by max profit per sale.</div></div></div>
+  <div class="table-wrap" style="margin-bottom:20px;"><table>
+    <tr><th>Product</th><th>Sell Price</th><th>COGS</th><th>Margin</th><th>Max Profit/Sale</th><th>Slots</th></tr>
+    <tr><td>Disposable Vape</td><td>$14–$18</td><td>$3–$5</td><td><span class="badge badge-purple">70%</span></td><td><strong style="color:var(--accent2);">$15.00</strong></td><td>2–3</td></tr>
+    <tr><td>Disposable Camera</td><td>$15–$20</td><td>$5–$8</td><td><span class="badge badge-purple">60%</span></td><td><strong style="color:var(--accent2);">$15.00</strong></td><td>1</td></tr>
+    <tr><td>High-End Drop (CBD/nootropic)</td><td>$8–$15</td><td>$2–$5</td><td><span class="badge badge-purple">60%</span></td><td><strong style="color:var(--accent2);">$13.00</strong></td><td>1–2</td></tr>
+    <tr><td>Phone Charger Cable</td><td>$8–$12</td><td>$1–$2</td><td><span class="badge badge-green">80%</span></td><td><strong style="color:var(--accent2);">$11.00</strong></td><td>1</td></tr>
+    <tr class="highlight"><td><strong>Condoms — Flavored/Novelty (2-pack)</strong></td><td>$7–$10</td><td>$1.50–$2.50</td><td><span class="badge badge-green">75%</span></td><td><strong style="color:var(--accent2);">$8.50</strong></td><td>1</td></tr>
+    <tr class="highlight"><td><strong>Condoms — Regular (3-pack)</strong></td><td>$6–$9</td><td>$1–$2</td><td><span class="badge badge-green">75%</span></td><td><strong style="color:var(--accent2);">$8.00</strong></td><td>1</td></tr>
+    <tr class="highlight"><td><strong>Condoms — Large/Magnum (3-pack)</strong></td><td>$6–$9</td><td>$1–$2</td><td><span class="badge badge-green">75%</span></td><td><strong style="color:var(--accent2);">$8.00</strong></td><td>1</td></tr>
+    <tr><td>Nicotine Pouches (Zyn)</td><td>$6–$10</td><td>$2–$3</td><td><span class="badge badge-purple">65%</span></td><td><strong style="color:var(--accent2);">$8.00</strong></td><td>1</td></tr>
+    <tr><td>Liquid IV (single)</td><td>$5–$7</td><td>$1.50–$2</td><td><span class="badge badge-purple">65%</span></td><td><strong style="color:var(--accent2);">$5.50</strong></td><td>1</td></tr>
+    <tr><td>Lip Balm / Eye Drops</td><td>$4–$6</td><td>$0.75–$1.25</td><td><span class="badge badge-green">75%</span></td><td><strong style="color:var(--accent2);">$5.25</strong></td><td>1</td></tr>
+    <tr><td>Energy Shot (5-hr Energy)</td><td>$4–$6</td><td>$1–$1.50</td><td><span class="badge badge-purple">65%</span></td><td><strong style="color:var(--accent2);">$5.00</strong></td><td>1</td></tr>
+    <tr><td>Aspirin / Hangover Pills</td><td>$3–$5</td><td>$0.50–$1</td><td><span class="badge badge-green">75%</span></td><td><strong style="color:var(--accent2);">$4.50</strong></td><td>1</td></tr>
+    <tr><td>Premium Snack (jerky / Slim Jim)</td><td>$3–$5</td><td>$0.80–$1.50</td><td><span class="badge badge-purple">60%</span></td><td><strong style="color:var(--accent2);">$4.20</strong></td><td>1–2</td></tr>
+    <tr><td>Bottled Water</td><td>$3–$4</td><td>$0.40–$0.60</td><td><span class="badge badge-green">86%</span></td><td><strong style="color:var(--accent2);">$3.60</strong></td><td>1–2</td></tr>
+  </table></div>
+  <h3 style="font-size:13px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:12px;">Monthly Profit Estimate (10 sales/product/week)</h3>
+  <div class="table-wrap"><table>
+    <tr><th>Product</th><th>Max Profit/Sale</th><th>Weekly</th><th>Monthly</th></tr>
+    <tr><td>Disposable Vape</td><td>$15.00</td><td>$150</td><td>$600</td></tr>
+    <tr><td>Disposable Camera</td><td>$15.00</td><td>$150</td><td>$600</td></tr>
+    <tr><td>High-End Drop</td><td>$13.00</td><td>$130</td><td>$520</td></tr>
+    <tr><td>Phone Charger Cable</td><td>$11.00</td><td>$110</td><td>$440</td></tr>
+    <tr class="highlight"><td>Condoms — all 3 slots (30 sales)</td><td>~$8.00 avg</td><td>$240</td><td><strong>$960</strong></td></tr>
+    <tr><td>Nicotine Pouches</td><td>$8.00</td><td>$80</td><td>$320</td></tr>
+    <tr><td>Liquid IV</td><td>$5.50</td><td>$55</td><td>$220</td></tr>
+    <tr><td>Lip Balm / Eye Drops</td><td>$5.25</td><td>$52</td><td>$208</td></tr>
+    <tr><td>Energy Shot</td><td>$5.00</td><td>$50</td><td>$200</td></tr>
+    <tr><td>Aspirin / Hangover Pills</td><td>$4.50</td><td>$45</td><td>$180</td></tr>
+    <tr><td>Snacks</td><td>$4.20</td><td>$42</td><td>$168</td></tr>
+    <tr><td>Bottled Water</td><td>$3.60</td><td>$36</td><td>$144</td></tr>
+    <tr class="total-row"><td><strong>TOTAL MONTHLY GROSS PROFIT</strong></td><td></td><td></td><td><strong>~$4,560</strong></td></tr>
+  </table></div>
+</div>
+
+<div class="section">
+  <div class="section-header"><div class="step-num">4</div><div><h2>Financial Projections</h2><div class="desc">What it costs, what you make, and when you break even.</div></div></div>
+  <div class="card-grid" style="margin-bottom:16px;">
+    <div>
+      <h3 style="font-size:13px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;">Startup Costs</h3>
+      <div class="table-wrap"><table>
+        <tr><th>Item</th><th>Cost</th></tr>
+        <tr><td>AMS 39-640 Combo (refurb)</td><td>$3,500–$5,500</td></tr>
+        <tr><td>Initial product inventory (incl. condoms)</td><td>$400–$600</td></tr>
+        <tr><td>Cashless payment hardware</td><td>$150–$300</td></tr>
+        <tr><td>LA Vending Operator Permit</td><td>$75</td></tr>
+        <tr><td>EBR Parish License</td><td>$50–$200</td></tr>
+        <tr><td>LLC Formation</td><td>$100–$200</td></tr>
+        <tr class="total-row"><td><strong>TOTAL</strong></td><td><strong>$4,275–$6,875</strong></td></tr>
+      </table></div>
+    </div>
+    <div>
+      <h3 style="font-size:13px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;">Monthly Operating Costs</h3>
+      <div class="table-wrap"><table>
+        <tr><th>Expense</th><th>Cost</th></tr>
+        <tr><td>Product restocking (~35%)</td><td>$350–$875</td></tr>
+        <tr><td>Location commission (15%)</td><td>$150–$375</td></tr>
+        <tr><td>Cashless processing (3–5%)</td><td>$30–$75</td></tr>
+        <tr><td>Fuel / restocking trips</td><td>$30–$60</td></tr>
+        <tr><td>Maintenance reserve</td><td>$25–$50</td></tr>
+        <tr class="total-row"><td><strong>TOTAL</strong></td><td><strong>$585–$1,435</strong></td></tr>
+      </table></div>
+    </div>
+  </div>
+  <h3 style="font-size:13px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;">Revenue by Location Tier</h3>
+  <div class="table-wrap"><table>
+    <tr><th>Traffic Level</th><th>Monthly Gross</th><th>Monthly Net</th></tr>
+    <tr><td>Low-traffic bar</td><td>$600–$900</td><td>$200–$350</td></tr>
+    <tr class="highlight"><td><strong>Mid-traffic bar</strong> <span class="badge badge-purple">Target</span></td><td>$1,200–$2,000</td><td>$450–$900</td></tr>
+    <tr><td>High-traffic bar/club</td><td>$2,500–$4,000</td><td>$1,000–$2,000</td></tr>
+    <tr class="total-row"><td colspan="2"><strong>Break-Even (mid-traffic)</strong></td><td><strong>~10 months</strong></td></tr>
+  </table></div>
+</div>
+
+<div class="section">
+  <div class="section-header"><div class="step-num">5</div><div><h2>Get Licensed — In Order</h2><div class="desc">Each step unlocks the next. ~2–3 weeks total. ~$275–$625 in fees.</div></div></div>
+  <div class="card">
+    <div class="lic-step"><div class="lic-num">1</div><div><div class="lic-title">Form Your LLC</div><div class="lic-meta">$100–$200 · geauxbiz.sos.la.gov · 1–3 days · Do this first — every other application requires your LLC name and EIN</div></div></div>
+    <div class="lic-step"><div class="lic-num">1b</div><div><div class="lic-title">Get Your EIN (Federal Tax ID)</div><div class="lic-meta">Free · IRS.gov · Instant · Required to open a business bank account</div></div></div>
+    <div class="lic-step"><div class="lic-num">1c</div><div><div class="lic-title">Open a Business Bank Account</div><div class="lic-meta">Free–$15/mo · Any bank · Same day · Keep business and personal finances separate from day one</div></div></div>
+    <div class="lic-step"><div class="lic-num">2</div><div><div class="lic-title">State Sales Tax Permit</div><div class="lic-meta">Free · revenue.louisiana.gov · 1–3 days · Required before legally collecting sales tax</div></div></div>
+    <div class="lic-step"><div class="lic-num">3</div><div><div class="lic-title">Louisiana Vending Machine Operator Permit</div><div class="lic-meta">$75/year · revenue.louisiana.gov · 1–5 days · Must be physically affixed to front of machine</div></div></div>
+    <div class="lic-step"><div class="lic-num">4</div><div><div class="lic-title">EBR Parish Occupational License</div><div class="lic-meta">$50–$200 · brgov.com · 1–5 days · Some bar owners will ask to see this before signing</div></div></div>
+    <div class="lic-step"><div class="lic-num">5</div><div><div class="lic-title">Health Permit (Food Products)</div><div class="lic-meta">$50–$150 · LDH / EBR Health Unit · Varies · Required for snacks, Liquid IV, energy shots</div></div></div>
+    <div class="lic-step" style="border-bottom:none;"><div class="lic-num">6</div><div><div class="lic-title">Vape Age Verification Compliance</div><div class="lic-meta">Hardware cost (built into machine) · Louisiana law requires ID scanner for all vape sales · No exceptions</div></div></div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-header"><div class="step-num">6</div><div><h2>Pitch Bar Owners</h2><div class="desc">Visit Mon–Wed afternoon. Independent owners only at first.</div></div></div>
+  <div class="pitch-box">"I place a fully stocked vending machine in your bar at zero cost to you. You get 15% of all revenue — or $75/month flat. I handle all stocking, maintenance, and repairs. Your customers stay in your bar instead of leaving to find a vape or snack."</div>
+  <div class="card-grid">
+    <div class="card" style="padding:14px 16px;"><div style="font-weight:600;margin-bottom:4px;font-size:13px;">Start with 15% Commission</div><div style="font-size:12px;color:var(--muted);">Lower friction to get the first yes. Switch to flat fee once revenue is steady.</div></div>
+    <div class="card" style="padding:14px 16px;"><div style="font-weight:600;margin-bottom:4px;font-size:13px;">Switch to $75/Month Flat</div><div style="font-size:12px;color:var(--muted);">Once established, flat fee gives better margins as revenue grows.</div></div>
+    <div class="card" style="padding:14px 16px;"><div style="font-weight:600;margin-bottom:4px;font-size:13px;">Independent Bars First</div><div style="font-size:12px;color:var(--muted);">One conversation = one decision. Chain managers require corporate approval.</div></div>
+    <div class="card" style="padding:14px 16px;"><div style="font-weight:600;margin-bottom:4px;font-size:13px;">Get a Signed Agreement</div><div style="font-size:12px;color:var(--muted);">Include: revenue %, machine ownership, 30-day exit clause, electricity access.</div></div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-header"><div class="step-num">7</div><div><h2>6-Week Launch Checklist</h2><div class="desc">From LLC to first sale in 6 weeks.</div></div></div>
+  <div class="card">
+    <div class="week-block">
+      <div class="week-title">Week 1 — Legal &amp; Business Setup</div>
+      <div class="check-item"><div class="checkbox"></div><div class="check-text">Register LLC at geauxBIZ portal <span style="color:var(--muted);">($100–$200)</span></div></div>
+      <div class="check-item"><div class="checkbox"></div><div class="check-text">Get EIN at IRS.gov <span style="color:var(--muted);">(free — instant)</span></div></div>
+      <div class="check-item"><div class="checkbox"></div><div class="check-text">Open a business bank account</div></div>
+      <div class="check-item"><div class="checkbox"></div><div class="check-text">Apply for Louisiana State Sales Tax Permit <span style="color:var(--muted);">(free)</span></div></div>
+      <div class="check-item"><div class="checkbox"></div><div class="check-text">Apply for Louisiana Vending Machine Operator Permit <span style="color:var(--muted);">($75)</span></div></div>
+      <div class="check-item"><div class="checkbox"></div><div class="check-text">Apply for EBR Parish Occupational License <span style="color:var(--muted);">($50–$200)</span></div></div>
+    </div>
+    <div class="week-block">
+      <div class="week-title">Week 2 — Find Your Machine</div>
+      <div class="check-item"><div class="checkbox"></div><div class="check-text">Set budget — aim $3,500–$5,500 for AMS 39-640 refurb</div></div>
+      <div class="check-item"><div class="checkbox"></div><div class="check-text">Search MegaVending.com, UsedVending.com, Vending.com, eBay/Craigslist</div></div>
+      <div class="check-item"><div class="checkbox"></div><div class="check-text">Inspect before buying — test card reader, coils, refrigeration</div></div>
+      <div class="check-item"><div class="checkbox"></div><div class="check-text">Confirm cashless payment included or budget $150–$300 add-on</div></div>
+    </div>
+    <div class="week-block">
+      <div class="week-title">Week 3 — Scout &amp; Pitch Locations</div>
+      <div class="check-item"><div class="checkbox"></div><div class="check-text">Visit Third Street / Tigerland Thu or Fri night — count crowds, check layouts</div></div>
+      <div class="check-item"><div class="checkbox"></div><div class="check-text">Build list of 5–10 target bars <span style="color:var(--muted);">(independents first)</span></div></div>
+      <div class="check-item"><div class="checkbox"></div><div class="check-text">Pitch bar owners Mon–Wed afternoon</div></div>
+      <div class="check-item"><div class="checkbox"></div><div class="check-text">Get signed location agreement <span style="color:var(--muted);">(revenue %, ownership, 30-day exit, electricity)</span></div></div>
+    </div>
+    <div class="week-block">
+      <div class="week-title">Week 4 — Prep Your Machine</div>
+      <div class="check-item"><div class="checkbox"></div><div class="check-text">Purchase machine after location is locked</div></div>
+      <div class="check-item"><div class="checkbox"></div><div class="check-text">Clean and test all coils and payment system</div></div>
+      <div class="check-item"><div class="checkbox"></div><div class="check-text">Install cashless payment reader if needed <span style="color:var(--muted);">(Nayax, Cantaloupe, or Parlevel)</span></div></div>
+      <div class="check-item"><div class="checkbox"></div><div class="check-text">Create product labels for every slot</div></div>
+      <div class="check-item"><div class="checkbox"></div><div class="check-text">Affix Louisiana vending permit to front of machine</div></div>
+    </div>
+    <div class="week-block">
+      <div class="week-title">Week 5 — Source &amp; Stock Products</div>
+      <div class="check-item"><div class="checkbox"></div><div class="check-text">Order vapes from licensed wholesale distributor</div></div>
+      <div class="check-item"><div class="checkbox"></div><div class="check-text">Order condoms — Regular, Large &amp; Flavored (Sam's Club or Costco)</div></div>
+      <div class="check-item"><div class="checkbox"></div><div class="check-text">Order Liquid IV / energy shots — Costco or Amazon Business</div></div>
+      <div class="check-item"><div class="checkbox"></div><div class="check-text">Order snacks — Sam's Club or local wholesale</div></div>
+      <div class="check-item"><div class="checkbox"></div><div class="check-text">Order CBD/drops — direct from brand or specialty distributor</div></div>
+      <div class="check-item"><div class="checkbox"></div><div class="check-text">Price each product <span style="color:var(--muted);">($2–$5 above retail — convenience premium)</span></div></div>
+      <div class="check-item"><div class="checkbox"></div><div class="check-text">Fill every slot and photograph for inventory tracking</div></div>
+    </div>
+    <div class="week-block">
+      <div class="week-title">Week 6 — Install &amp; Launch</div>
+      <div class="check-item"><div class="checkbox"></div><div class="check-text">Deliver and install machine at bar</div></div>
+      <div class="check-item"><div class="checkbox"></div><div class="check-text">Stock condom slots at eye level — Regular, Large, Flavored</div></div>
+      <div class="check-item"><div class="checkbox"></div><div class="check-text">Run test transaction on every payment method</div></div>
+      <div class="check-item"><div class="checkbox"></div><div class="check-text">Brief bar staff — what's in it and who to call for jams</div></div>
+      <div class="check-item"><div class="checkbox"></div><div class="check-text">Take baseline inventory photos</div></div>
+    </div>
+    <div class="week-block">
+      <div class="week-title">Ongoing — Weekly / Bi-Weekly</div>
+      <div class="check-item"><div class="checkbox"></div><div class="check-text">Restock every 5–7 days minimum</div></div>
+      <div class="check-item"><div class="checkbox"></div><div class="check-text">Never leave a slot empty going into a weekend</div></div>
+      <div class="check-item"><div class="checkbox"></div><div class="check-text">Log what sells — cut slow movers after 30 days</div></div>
+      <div class="check-item"><div class="checkbox"></div><div class="check-text">Track revenue vs. expenses in a spreadsheet</div></div>
+      <div class="check-item"><div class="checkbox"></div><div class="check-text">Pay bar owner commission on schedule</div></div>
+      <div class="check-item"><div class="checkbox"></div><div class="check-text">Wipe glass, check for jams, test card reader monthly</div></div>
+    </div>
+    <div class="week-block" style="margin-bottom:0;">
+      <div class="week-title">Month 3 — Review &amp; Decide</div>
+      <div class="check-item"><div class="checkbox"></div><div class="check-text">Calculate actual monthly net profit</div></div>
+      <div class="check-item"><div class="checkbox"></div><div class="check-text">Identify top 5 products — expand their slot count</div></div>
+      <div class="check-item"><div class="checkbox"></div><div class="check-text">Renegotiate to flat fee if revenue is stable</div></div>
+      <div class="check-item"><div class="checkbox"></div><div class="check-text">If profitable → scout Machine #2 location</div></div>
+      <div class="check-item" style="border-bottom:none;"><div class="checkbox"></div><div class="check-text">If underperforming → diagnose: location? products? machine?</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-header"><div class="step-num">8</div><div><h2>Growth Roadmap</h2><div class="desc">Scale after Machine 1 is profitable and understood.</div></div></div>
+  <div class="roadmap">
+    <div class="roadmap-item"><div class="roadmap-phase">Phase 1 · Months 1–3</div><div class="roadmap-title">Prove the Concept</div><div class="roadmap-desc">1 machine live. Learn restocking rhythm, track best sellers, build bar owner relationship.</div></div>
+    <div class="roadmap-item"><div class="roadmap-phase">Phase 2 · Months 4–6</div><div class="roadmap-title">Add Machine #2</div><div class="roadmap-desc">Reinvest profits. Place second machine in a new bar — different area from Machine 1.</div></div>
+    <div class="roadmap-item"><div class="roadmap-phase">Phase 3 · Months 7–12</div><div class="roadmap-title">Add Vape Kiosk + Expand Areas</div><div class="roadmap-desc">Add a dedicated vape kiosk at top-performing location. Expand to Mid City and Perkins corridor.</div></div>
+    <div class="roadmap-item"><div class="roadmap-phase">Phase 4 · Year 2+</div><div class="roadmap-title">Scale to 6–10 Machines</div><div class="roadmap-desc">Hire part-time restock driver. Expand to Gonzales, Denham Springs, Hammond.</div></div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-header"><div class="step-num">9</div><div><h2>Key Success Factors</h2><div class="desc">The five things that determine whether this works.</div></div></div>
+  <div class="success-grid">
+    <div class="success-item"><div class="success-num">01</div><div class="success-text">Location first — one great bar beats three mediocre ones</div></div>
+    <div class="success-item"><div class="success-num">02</div><div class="success-text">Cashless payment is mandatory — bars are card-heavy</div></div>
+    <div class="success-item"><div class="success-num">03</div><div class="success-text">Stock for nightlife — vapes, condoms, Liquid IV over chips</div></div>
+    <div class="success-item"><div class="success-num">04</div><div class="success-text">Never let slots run empty — especially going into weekends</div></div>
+    <div class="success-item"><div class="success-num">05</div><div class="success-text">Treat bar owners like partners — they give you Machine #2</div></div>
+  </div>
+</div>
+
+</div>
+<footer>Baton Rouge Bar Vending Machine Business Plan · Startup Edition · April 2026</footer>
+</body>
+</html>
